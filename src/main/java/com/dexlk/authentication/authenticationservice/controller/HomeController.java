@@ -39,6 +39,7 @@ public class HomeController {
 
         if (userName.equals("admin")) {
             validationResponse.setResponse("true");
+            validationResponse.setUserId(userName);
         } else {
             validationResponse.setResponse("false");
         }
