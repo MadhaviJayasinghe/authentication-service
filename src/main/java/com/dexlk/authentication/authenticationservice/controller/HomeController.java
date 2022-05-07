@@ -1,13 +1,12 @@
 package com.dexlk.authentication.authenticationservice.controller;
 
-import com.dexlk.authentication.authenticationservice.model.JwtRequest;
-import com.dexlk.authentication.authenticationservice.model.JwtResponse;
-import com.dexlk.authentication.authenticationservice.model.TokenRequest;
-import com.dexlk.authentication.authenticationservice.model.ValidationResponse;
+import com.dexlk.authentication.authenticationservice.model.*;
 import com.dexlk.authentication.authenticationservice.service.UserService;
 import com.dexlk.authentication.authenticationservice.utility.JWTUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +26,11 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/saveUser")
+    public void saveWallet(@RequestBody UserCredential userCredential) {
+        userService.saveUser(userCredential);
+    }
+
     @GetMapping("/")
     public String home() {
         return "Successfully Authenticated";
@@ -37,11 +41,11 @@ public class HomeController {
         ValidationResponse validationResponse = new ValidationResponse();
         String userName = jwtUtility.getUsernameFromToken(request.getToken());
 
-        if (userName.equals("admin")) {
-            validationResponse.setResponse("true");
-            validationResponse.setUserId(userName);
-        } else {
-            validationResponse.setResponse("false");
+        for (UserCredential userCredential : userService.getusernames()) {
+            if (userName.equals(userCredential.getUsername())) {
+                validationResponse.setResponse("true");
+                validationResponse.setUserId(userName);
+            }
         }
         return validationResponse;
 
