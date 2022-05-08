@@ -6,7 +6,7 @@ amazon:
   end-point:
     url: dynamodb.ap-south-1.amazonaws.com
 server:
-  port: 9003
+  port: 80
 
 jwt:
   secret: secretkey123

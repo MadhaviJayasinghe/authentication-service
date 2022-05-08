@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-
+@RequestMapping("/")
 public class HomeController {
     @Autowired
     private JWTUtility jwtUtility;
