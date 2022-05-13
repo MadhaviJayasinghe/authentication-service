@@ -26,17 +26,17 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/saveUser")
+    @PostMapping("/auth/saveUser")
     public void saveWallet(@RequestBody UserCredential userCredential) {
         userService.saveUser(userCredential);
     }
 
-    @GetMapping("/")
+    @GetMapping("/auth")
     public String home() {
         return "Successfully Authenticated";
     }
 
-    @PostMapping("/validate")
+    @PostMapping("/auth/validate")
     public ValidationResponse validateUser(@RequestBody TokenRequest request) {
         ValidationResponse validationResponse = new ValidationResponse();
         String userName = jwtUtility.getUsernameFromToken(request.getToken());
@@ -51,27 +51,7 @@ public class HomeController {
 
     }
 
-//    @PostMapping("/validate")
-//    public ValidationResponse validateUser(@RequestBody TokenRequest request) {
-//        try {
-//            ValidationResponse validationResponse = new ValidationResponse();
-//            String userName = jwtUtility.getUsernameFromToken(request.getToken());
-//
-//            if (userName.equals("admin")) {
-//                validationResponse.setResponse("true");
-//            }
-//            else {
-//                validationResponse.setResponse("false");
-//            }
-//            return validationResponse;
-//        } catch (Exception e) {
-//            log.error("Error" + e.getMessage());
-//        }
-//        return null;
-//    }
-
-
-    @PostMapping("/authenticate")
+    @PostMapping("/auth/authenticate")
     public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         try {

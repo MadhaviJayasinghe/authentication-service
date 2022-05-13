@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.dexlk.authentication.authenticationservice.model.UserCredential;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,8 +24,6 @@ public class UserService implements UserDetailsService {
     private DynamoDBMapper mapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //Logic to get the user form the Database
-
         UserCredential userCredential = getUser(username);
         return new User(userCredential.getUsername(),userCredential.getPassword(),new ArrayList<>());
     }

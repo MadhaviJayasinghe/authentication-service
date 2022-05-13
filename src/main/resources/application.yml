@@ -8,5 +8,4 @@ amazon:
 server:
   port: 80
 
-jwt:
-  secret: secretkey123
+secret: ${SECRET:secretkey123}
